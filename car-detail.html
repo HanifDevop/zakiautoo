@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zaki Automobile — Car Detail</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.detail-wrap {
+  display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start;
+  padding-top:20px;
+}
+.img-main {
+  width:100%; aspect-ratio:4/3; object-fit:cover;
+  border:1px solid var(--border); background:#0d0d10;
+  display:flex; align-items:center; justify-content:center;
+}
+.img-main img { width:100%; height:100%; object-fit:cover; display:block; }
+.img-placeholder {
+  width:100%; aspect-ratio:4/3; background:linear-gradient(135deg,#111,#1a1a1a);
+  border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:80px;
+}
+.img-thumbs { display:flex; gap:10px; margin-top:10px; }
+.thumb {
+  width:80px; height:60px; background:#1a1a1a; border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; font-size:24px;
+  cursor:pointer; transition:border-color 0.2s;
+}
+.thumb:hover, .thumb.active { border-color:var(--red); }
+
+/* Info panel */
+.car-info-panel {}
+.car-info-panel .badge {
+  display:inline-block; background:var(--red); color:white;
+  font-size:10px; font-weight:600; letter-spacing:2px;
+  text-transform:uppercase; padding:5px 14px; margin-bottom:18px;
+}
+.car-info-panel h1 {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(40px,5vw,64px); letter-spacing:1px; color:white; line-height:1;
+}
+.car-info-panel .price {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,4vw,52px); color:var(--gold);
+  margin:16px 0 28px;
+}
+
+.specs-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:1px;
+  background:var(--border); border:1px solid var(--border); margin-bottom:28px;
+}
+.spec-item { background:var(--card); padding:14px 16px; }
+.spec-item label {
+  display:block; font-size:10px; letter-spacing:2px;
+  text-transform:uppercase; color:var(--muted); margin-bottom:4px;
+}
+.spec-item span { font-size:14px; color:white; font-weight:400; }
+
+.highlights { margin-bottom:28px; }
+.highlights h4 {
+  font-size:11px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--red); font-weight:600; margin-bottom:16px;
+}
+.highlight-item {
+  display:flex; align-items:center; gap:10px;
+  font-size:13px; color:var(--muted); margin-bottom:10px;
+}
+.highlight-item::before { content:''; display:block; width:5px; height:5px; border-radius:50%; background:var(--red); flex-shrink:0; }
+
+.action-btns { display:flex; flex-direction:column; gap:12px; }
+
+/* Related cars */
+.related-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; }
+.mini-card {
+  background:var(--card); border:1px solid var(--border); overflow:hidden;
+  transition:border-color 0.3s;
+}
+.mini-card:hover { border-color:rgba(232,0,13,0.3); }
+.mini-card-img { height:160px; background:#0d0d10; display:flex; align-items:center; justify-content:center; font-size:40px; }
+.mini-card-img img { width:100%; height:100%; object-fit:cover; }
+.mini-card-body { padding:16px; }
+.mini-card-body h4 { font-family:'Bebas Neue',sans-serif; font-size:22px; color:white; }
+.mini-card-body p { font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--gold); margin:4px 0 10px; }
+.mini-card-body a {
+  font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+  color:var(--red); text-decoration:none;
+}
+
+@media(max-width:900px) {
+  .detail-wrap { grid-template-columns:1fr; gap:36px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">ZAKI <span>AUTO</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cars.html">Inventory</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get In Touch</a>
+</nav>
+
+<div class="page-header" style="padding-bottom:40px">
+  <div class="page-header-inner">
+    <div class="page-eyebrow"><span><a href="cars.html" style="color:var(--red);text-decoration:none">← Back to Inventory</a></span></div>
+    <h1 id="page-title">CAR DETAIL</h1>
+  </div>
+</div>
+
+<section class="section">
+  <div class="detail-wrap">
+    <!-- LEFT: IMAGE -->
+    <div>
+      <div class="img-placeholder" id="car-img-wrap">
+        <span>🚗</span>
+      </div>
+      <div class="img-thumbs">
+        <div class="thumb active">📸</div>
+        <div class="thumb">📸</div>
+        <div class="thumb">📸</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: INFO -->
+    <div class="car-info-panel">
+      <div class="badge">Available For Sale</div>
+      <h1 id="car-name">Loading...</h1>
+      <div class="price" id="car-price">—</div>
+
+      <div class="specs-grid" id="specs-grid">
+        <!-- filled by JS -->
+      </div>
+
+      <div class="highlights">
+        <h4>Highlights</h4>
+        <div class="highlight-item">Excellent overall condition</div>
+        <div class="highlight-item">Available for physical inspection in Kano</div>
+        <div class="highlight-item">All documents verified and available</div>
+        <div class="highlight-item">Honest, transparent transaction guaranteed</div>
+      </div>
+
+      <div class="action-btns">
+        <a id="wa-link" href="https://wa.me/2348106388883" class="btn-whatsapp">💬 &nbsp;Enquire on WhatsApp</a>
+        <a href="tel:+2348106388883" class="btn-call">📞 &nbsp;Call to Inspect</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESCRIPTION -->
+<section class="section section-alt">
+  <div class="section-label"><span>About This Car</span></div>
+  <h2 class="section-heading" style="margin-bottom:24px">VEHICLE DESCRIPTION</h2>
+  <p id="car-desc" style="font-size:15px;color:var(--muted);line-height:1.9;max-width:720px">
+    Loading description...
+  </p>
+</section>
+
+<!-- RELATED CARS -->
+<section class="section">
+  <div class="section-label"><span>More Vehicles</span></div>
+  <h2 class="section-heading">YOU MAY ALSO LIKE</h2>
+  <div class="related-grid">
+    <div class="mini-card reveal">
+      <div class="mini-card-img"><img src="glk.jpg" alt="" onerror="this.style.display='none'">🚙</div>
+      <div class="mini-card-body"><h4>Mercedes GLK</h4><p>₦8,500,000</p><a href="car-detail.html?car=glk">View Details →</a></div>
+    </div>
+    <div class="mini-card reveal">
+      <div class="mini-card-img"><img src="sonata2020.jpg" alt="" onerror="this.style.display='none'">🚗</div>
+      <div class="mini-card-body"><h4>Hyundai Sonata 2020</h4><p>₦20,000,000</p><a href="car-detail.html?car=sonata2020">View Details →</a></div>
+    </div>
+    <div class="mini-card reveal">
+      <div class="mini-card-img"><img src="accord2017.jpg" alt="" onerror="this.style.display='none'">🚗</div>
+      <div class="mini-card-body"><h4>Honda Accord 2017</h4><p>₦11,000,000</p><a href="car-detail.html?car=accord2017">View Details →</a></div>
+    </div>
+    <div class="mini-card reveal">
+      <div class="mini-card-img"><img src="sonata2017.jpg" alt="" onerror="this.style.display='none'">🚗</div>
+      <div class="mini-card-body"><h4>Hyundai Sonata 2017</h4><p>₦10,000,000</p><a href="car-detail.html?car=sonata2017">View Details →</a></div>
+    </div>
+    <div class="mini-card reveal">
+      <div class="mini-card-img"><img src="bmw.jpg" alt="" onerror="this.style.display='none'">🚗</div>
+      <div class="mini-card-body"><h4>BMW</h4><p>₦9,000,000</p><a href="car-detail.html?car=bmw">View Details →</a></div>
+    </div>
+    <div class="mini-card reveal">
+      <div class="mini-card-img"><img src="corolla.jpg" alt="" onerror="this.style.display='none'">🚗</div>
+      <div class="mini-card-body"><h4>Toyota Corolla 2013</h4><p>₦13,500,000</p><a href="car-detail.html?car=corolla">View Details →</a></div>
+    </div>
+    <div class="mini-card reveal">
+      <div class="mini-card-img"><img src="c300.jpg" alt="" onerror="this.style.display='none'">🚗</div>
+      <div class="mini-card-body"><h4>Mercedes C300 2016</h4><p>₦18,000,000</p><a href="car-detail.html?car=c300">View Details →</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand">ZAKI <span>AUTO</span></div><p class="footer-desc">Your trusted automobile dealer in Kano State.</p></div>
+    <div class="footer-col"><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="cars.html">Inventory</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><p>📍 Obasanjo Road, Kano</p><p>📞 +234 810 638 8883</p></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 Zaki Automobile. All Rights Reserved.</p></div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+const cars = {
+  glk: {
+    name:'Mercedes-Benz GLK', price:'₦8,500,000', img:'glk.jpg',
+    specs:[
+      {label:'Make',val:'Mercedes-Benz'},{label:'Model',val:'GLK'},
+      {label:'Status',val:'Nigerian Used'},{label:'Type',val:'SUV'},
+      {label:'Location',val:'Kano State'},{label:'Condition',val:'Good'},
+    ],
+    desc:`The Mercedes-Benz GLK is a compact luxury SUV built for those who want premium comfort and road presence without compromise. This Nigerian used unit has been well maintained and is in good condition both inside and out. It features a powerful engine, solid suspension, and a well-appointed interior. Located in Kano State and available for full physical inspection at any time.`,
+    wa:'I\'m%20interested%20in%20the%20Mercedes-Benz%20GLK%20for%20%E2%82%A68%2C500%2C000'
+  },
+  sonata2020: {
+    name:'Hyundai Sonata 2020', price:'₦20,000,000', img:'sonata2020.jpg',
+    specs:[
+      {label:'Make',val:'Hyundai'},{label:'Model',val:'Sonata'},
+      {label:'Year',val:'2020'},{label:'Type',val:'Sedan'},
+      {label:'Location',val:'Kano State'},{label:'Condition',val:'Brand New'},
+    ],
+    desc:`The 2020 Hyundai Sonata represents the latest generation of this iconic sedan — featuring a bold new design, cutting-edge technology, and a refined driving experience. This unit is brand new, never registered, and in factory-perfect condition. Ideal for buyers who want a modern, stylish, and fuel-efficient vehicle. Available for inspection in Kano State.`,
+    wa:'I\'m%20interested%20in%20the%20Hyundai%20Sonata%202020%20for%20%E2%82%A620%2C000%2C000'
+  },
+  accord2017: {
+    name:'Honda Accord 2017', price:'₦11,000,000', img:'accord2017.jpg',
+    specs:[
+      {label:'Make',val:'Honda'},{label:'Model',val:'Accord'},
+      {label:'Year',val:'2017'},{label:'Type',val:'Sedan'},
+      {label:'Location',val:'Kano State'},{label:'Condition',val:'Brand New'},
+    ],
+    desc:`The 2017 Honda Accord is a trusted and beloved mid-size sedan known for its reliability, comfortable cabin, and strong resale value. This unit is brand new and in perfect condition — clean bodywork, pristine interior, and a strong engine ready for the road. A smart choice for families and professionals alike. Available for inspection in Kano State.`,
+    wa:'I\'m%20interested%20in%20the%20Honda%20Accord%202017%20for%20%E2%82%A611%2C000%2C000'
+  },
+  sonata2017: {
+    name:'Hyundai Sonata 2017', price:'₦10,000,000', img:'sonata2017.jpg',
+    specs:[
+      {label:'Make',val:'Hyundai'},{label:'Model',val:'Sonata'},
+      {label:'Year',val:'2017'},{label:'Type',val:'Sedan'},
+      {label:'Location',val:'Kano State'},{label:'Condition',val:'Brand New'},
+    ],
+    desc:`The 2017 Hyundai Sonata is a stylish and spacious sedan offering excellent value for money. This brand new unit features a smooth ride, modern infotainment system, and fuel-efficient engine. Whether for business or family use, this Sonata delivers comfort and reliability in equal measure. Available for inspection at our lot on Obasanjo Road, Kano State.`,
+    wa:'I\'m%20interested%20in%20the%20Hyundai%20Sonata%202017%20for%20%E2%82%A610%2C000%2C000'
+  },
+  bmw: {
+    name:'BMW', price:'₦9,000,000', img:'bmw.jpg',
+    specs:[
+      {label:'Make',val:'BMW'},{label:'Model',val:'Series'},
+      {label:'Status',val:'Nigerian Used'},{label:'Type',val:'Sedan'},
+      {label:'Location',val:'Kano State'},{label:'Condition',val:'Good'},
+    ],
+    desc:`This BMW is a Nigerian used vehicle in good condition, offering the signature BMW driving experience — precise handling, a powerful engine, and a premium interior. BMW is a symbol of performance and prestige, and this unit delivers exactly that at an accessible price point. Available for full inspection in Kano State. Contact us to schedule a viewing.`,
+    wa:'I\'m%20interested%20in%20the%20BMW%20for%20%E2%82%A69%2C000%2C000'
+  },
+  corolla: {
+    name:'Toyota Corolla 2013', price:'₦13,500,000', img:'corolla.jpg',
+    specs:[
+      {label:'Make',val:'Toyota'},{label:'Model',val:'Corolla'},
+      {label:'Year',val:'2013'},{label:'Type',val:'Sedan'},
+      {label:'Location',val:'Kano State'},{label:'Condition',val:'Brand New'},
+    ],
+    desc:`The Toyota Corolla 2013 is one of the most dependable and widely respected sedans ever produced. This brand new unit is in perfect condition — zero wear, factory-fresh interior, and a well-tuned engine built for Nigerian roads. Known for low maintenance costs and exceptional longevity, this Corolla is an investment that pays for itself. Available in Kano State.`,
+    wa:'I\'m%20interested%20in%20the%20Toyota%20Corolla%202013%20for%20%E2%82%A613%2C500%2C000'
+  },
+  c300: {
+    name:'Mercedes-Benz C300 2016', price:'₦18,000,000', img:'c300.jpg',
+    specs:[
+      {label:'Make',val:'Mercedes-Benz'},{label:'Model',val:'C300'},
+      {label:'Year',val:'2016'},{label:'Type',val:'Sedan'},
+      {label:'Location',val:'Kano State'},{label:'Condition',val:'Excellent'},
+    ],
+    desc:`The 2016 Mercedes-Benz C300 is the definition of executive luxury — a sophisticated sedan with a turbocharged engine, sumptuous leather interior, and a suite of advanced driver-assistance features. This unit is in excellent condition with clean bodywork and a spotless cabin. Perfect for buyers who demand the very best. Available for inspection in Kano State — don't miss this one.`,
+    wa:'I\'m%20interested%20in%20the%20Mercedes-Benz%20C300%202016%20for%20%E2%82%A618%2C000%2C000'
+  },
+  sonata: {
+    name:'Hyundai Sonata 2016', price:'₦11,500,000', img:'sonata.jpg',
+    specs:[
+      {label:'Make',val:'Hyundai'},{label:'Model',val:'Sonata'},
+      {label:'Year',val:'2016'},{label:'Type',val:'Sedan'},
+      {label:'Location',val:'Kano State'},{label:'Condition',val:'Excellent'},
+    ],
+    desc:`The 2016 Hyundai Sonata is a refined and comfortable mid-size sedan offering a blend of modern technology, fuel efficiency, and elegant design. This particular unit is in excellent condition and has been well maintained. It features a smooth ride, responsive steering, and a spacious interior ideal for both family and business use. Located in Kano State and available for full physical inspection at any time.`,
+    wa:'I\'m%20interested%20in%20the%20Hyundai%20Sonata%202016%20for%20%E2%82%A611%2C500%2C000'
+  },
+  '406': {
+    name:'Peugeot 406', price:'₦5,000,000', img:'406.jpg',
+    specs:[
+      {label:'Make',val:'Peugeot'},{label:'Model',val:'406'},
+      {label:'Year',val:'Classic'},{label:'Type',val:'Sedan'},
+      {label:'Location',val:'Kano State'},{label:'Condition',val:'Excellent'},
+    ],
+    desc:`The Peugeot 406 is a classic French sedan known for its durability, smooth suspension, and strong resale value in the Nigerian market. This unit is in excellent condition with a solid body frame and a well-maintained engine. Perfect for buyers looking for a reliable and affordable vehicle in Kano State. Full inspection is available at our lot on Obasanjo Road.`,
+    wa:'I\'m%20interested%20in%20the%20Peugeot%20406%20for%20%E2%82%A65%2C000%2C000'
+  },
+  accord: {
+    name:'Honda Accord 2018', price:'₦25,000,000', img:'accord.jpg',
+    specs:[
+      {label:'Make',val:'Honda'},{label:'Model',val:'Accord'},
+      {label:'Year',val:'2018'},{label:'Type',val:'Sedan'},
+      {label:'Location',val:'Kano State'},{label:'Condition',val:'Excellent'},
+    ],
+    desc:`The 2018 Honda Accord is a premium mid-size sedan celebrated for its reliability, spacious cabin, and advanced safety features. This unit is in superb condition — clean interior, strong engine, and low usage. A top-tier vehicle for buyers seeking luxury and performance in one package. Available for inspection in Kano State. Contact us today to schedule a viewing.`,
+    wa:'I\'m%20interested%20in%20the%20Honda%20Accord%202018%20for%20%E2%82%A625%2C000%2C000'
+  }
+};
+
+const params = new URLSearchParams(location.search);
+const key = params.get('car') || 'glk';
+const car = cars[key] || cars['sonata'];
+
+document.getElementById('page-title').textContent = car.name.toUpperCase();
+document.getElementById('car-name').textContent = car.name;
+document.getElementById('car-price').textContent = car.price;
+document.getElementById('car-desc').textContent = car.desc;
+document.getElementById('wa-link').href = `https://wa.me/2348106388883?text=${car.wa}`;
+
+// Specs
+const sg = document.getElementById('specs-grid');
+car.specs.forEach(s => {
+  sg.innerHTML += `<div class="spec-item"><label>${s.label}</label><span>${s.val}</span></div>`;
+});
+
+// Image
+const wrap = document.getElementById('car-img-wrap');
+wrap.innerHTML = `<img src="${car.img}" alt="${car.name}" onerror="this.parentElement.innerHTML='<span style=\\'font-size:80px\\'>🚗</span>'" style="width:100%;height:100%;object-fit:cover">`;
+</script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zaki Automobile — Services</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.services-main {
+  display:grid; grid-template-columns:1fr 1fr; gap:2px;
+  background:var(--border); border:1px solid var(--border);
+  margin-bottom:80px;
+}
+.service-block {
+  background:var(--surface); padding:52px 44px;
+  position:relative; overflow:hidden; transition:background 0.3s;
+}
+.service-block:hover { background:#1a1a1e; }
+.service-block::before {
+  content:''; position:absolute; top:0; left:0;
+  width:100%; height:3px; background:var(--red);
+  transform:scaleX(0); transform-origin:left; transition:transform 0.4s;
+}
+.service-block:hover::before { transform:scaleX(1); }
+.service-num {
+  font-family:'Bebas Neue',sans-serif; font-size:72px; color:rgba(255,255,255,0.04);
+  line-height:1; margin-bottom:16px;
+}
+.service-icon { font-size:36px; margin-bottom:20px; display:block; }
+.service-block h3 {
+  font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:1px;
+  color:white; margin-bottom:16px;
+}
+.service-block p { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:24px; }
+.service-block ul { list-style:none; }
+.service-block ul li {
+  font-size:13px; color:var(--muted); padding:8px 0;
+  border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px;
+}
+.service-block ul li::before { content:''; display:block; width:4px; height:4px; border-radius:50%; background:var(--red); flex-shrink:0; }
+.service-block ul li:last-child { border:none; }
+
+/* Process */
+.process-row {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:0; position:relative;
+}
+.process-row::before {
+  content:''; position:absolute; top:32px; left:0; right:0; height:1px;
+  background:linear-gradient(to right,transparent,var(--red),transparent);
+}
+.process-step { padding:0 24px; text-align:center; position:relative; }
+.step-circle {
+  width:64px; height:64px; border-radius:50%; background:var(--red);
+  display:flex; align-items:center; justify-content:center; margin:0 auto 20px;
+  font-family:'Bebas Neue',sans-serif; font-size:24px; color:white;
+  border:3px solid var(--black); position:relative; z-index:2;
+}
+.process-step h4 { font-size:14px; font-weight:600; color:white; margin-bottom:8px; }
+.process-step p { font-size:12px; color:var(--muted); line-height:1.6; }
+
+@media(max-width:768px) {
+  .services-main { grid-template-columns:1fr; }
+  .service-block { padding:36px 28px; }
+  .process-row::before { display:none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">ZAKI <span>AUTO</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cars.html">Inventory</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get In Touch</a>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-eyebrow"><span>What We Offer</span></div>
+    <h1>OUR SERVICES</h1>
+    <p>From importation to local sales — we handle every step of your automobile journey.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="services-main reveal">
+
+    <div class="service-block">
+      <div class="service-num">01</div>
+      <span class="service-icon">🌍</span>
+      <h3>Car Importation</h3>
+      <p>We import quality vehicles directly from abroad. From sourcing to clearing at the port, we manage the entire importation process on your behalf.</p>
+      <ul>
+        <li>Vehicle sourcing from international markets</li>
+        <li>Shipping and logistics management</li>
+        <li>Customs clearance and documentation</li>
+        <li>Delivery to Kano State</li>
+      </ul>
+    </div>
+
+    <div class="service-block">
+      <div class="service-num">02</div>
+      <span class="service-icon">🔨</span>
+      <h3>Auction Bidding</h3>
+      <p>We bid on your behalf at automobile auctions to secure the best vehicles at the best prices. Our experience ensures you don't overpay.</p>
+      <ul>
+        <li>Access to major vehicle auctions</li>
+        <li>Professional bidding strategy</li>
+        <li>Pre-bid vehicle inspection reports</li>
+        <li>Transparent pricing with no hidden costs</li>
+      </ul>
+    </div>
+
+    <div class="service-block">
+      <div class="service-num">03</div>
+      <span class="service-icon">🤝</span>
+      <h3>Car Buying</h3>
+      <p>Looking to buy locally? We connect you with verified sellers and inspect every vehicle before you commit to a purchase.</p>
+      <ul>
+        <li>Curated local vehicle listings</li>
+        <li>Full inspection before purchase</li>
+        <li>Document verification service</li>
+        <li>Price negotiation assistance</li>
+      </ul>
+    </div>
+
+    <div class="service-block">
+      <div class="service-num">04</div>
+      <span class="service-icon">💰</span>
+      <h3>Car Selling</h3>
+      <p>Want to sell your vehicle fast and at a fair price? We list, market, and close the deal for you with zero stress.</p>
+      <ul>
+        <li>Vehicle valuation and pricing</li>
+        <li>Listing and marketing support</li>
+        <li>Buyer vetting and negotiation</li>
+        <li>Safe, transparent sale process</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- PROCESS -->
+  <div class="section-label"><span>How It Works</span></div>
+  <h2 class="section-heading">OUR PROCESS</h2>
+  <div class="process-row reveal">
+    <div class="process-step">
+      <div class="step-circle">1</div>
+      <h4>Contact Us</h4>
+      <p>Reach out via WhatsApp or call to tell us what you need.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">2</div>
+      <h4>We Source</h4>
+      <p>We find the perfect vehicle matching your budget and taste.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">3</div>
+      <h4>Inspection</h4>
+      <p>You inspect the vehicle before any payment is made.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">4</div>
+      <h4>Close Deal</h4>
+      <p>Documents are verified and the transaction is completed safely.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">5</div>
+      <h4>Drive Away</h4>
+      <p>You drive your car home. Simple as that.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section-alt" style="text-align:center">
+  <h2 class="section-heading" style="margin-bottom:16px">START YOUR JOURNEY TODAY</h2>
+  <p style="color:var(--muted);font-size:16px;margin-bottom:36px;max-width:420px;margin-inline:auto;line-height:1.8">
+    Whether you're buying, selling, or importing — we're one message away.
+  </p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+    <a href="https://wa.me/2348106388883" class="btn-whatsapp">💬 &nbsp;WhatsApp Us</a>
+    <a href="tel:+2348106388883" class="btn-call">📞 &nbsp;Call Now</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand">ZAKI <span>AUTO</span></div><p class="footer-desc">Your trusted automobile dealer in Kano State.</p></div>
+    <div class="footer-col"><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="cars.html">Inventory</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Car Importation</a></li><li><a href="services.html">Auction Bidding</a></li><li><a href="services.html">Car Buying</a></li><li><a href="services.html">Car Selling</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><p>📍 Obasanjo Road, Kano</p><p>📞 +234 810 638 8883</p></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 Zaki Automobile. All Rights Reserved.</p></div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
